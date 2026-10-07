@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 void main() {
   runApp(const MyApp());
@@ -114,6 +115,11 @@ class _MyHomePageState extends State<MyHomePage> {
               duration: Duration(milliseconds: 500),
               child: Text("Welcome best Students"),
             ),
+            
+            /// carton animation
+            
+            
+            Lottie.asset("assets/Loader cat.json")
           ],
         ),
       ),

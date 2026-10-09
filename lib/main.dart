@@ -1,7 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
-void main() {
+Database? database;
+
+void main() async {
+  List names= ["mo","mai","aya","ali"];
+
+  var x = names.map((e) {
+    print(e);
+  },);
+
+
+  WidgetsFlutterBinding.ensureInitialized();
+  String dbPath = await getDatabasesPath();
+  String path = join(dbPath, "notes_1.db");
+  database = await openDatabase(
+    path,
+    version: 1,
+    onCreate: (db, version) {
+    },
+  );
+
+  await database!.insert("notes", {"title": "test", "content": "this test "});
+
+  print(await database!.query("notes",where:'id = ?',whereArgs: [2],));
+  database!.delete("notes");
+
   runApp(const MyApp());
 }
 
@@ -111,15 +137,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
             ///======================
             AnimatedOpacity(
-              opacity: isOpacity?0.0:1.0,
+              opacity: isOpacity ? 0.0 : 1.0,
               duration: Duration(milliseconds: 500),
               child: Text("Welcome best Students"),
             ),
-            
+
             /// carton animation
-            
-            
-            Lottie.asset("assets/Loader cat.json")
+            Lottie.asset("assets/Loader cat.json"),
           ],
         ),
       ),
